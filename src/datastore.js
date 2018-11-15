@@ -11,21 +11,19 @@ class DataStore {
   // values if present. Returns the value.
   //
   // Value can be any JSON-serializable type.
-  set (key, value) {}
+  set (key, value) {
+    return _set(key, value, "global");
+  }
 
   // Public: Get value by key if in the database or return null
   // if not found.
-  get (key) {}
+  get (key) {
+    return _get(key, value, "global");
+  }
 
-  // Public: Set a value scoped specifically to this user.
-  // `key` is unique per-user, rather than globally.
-  //
-  // Value can be any JSON-serializable type.
-  set_user_value (user, key, value) {}
+  _set (key, value, table) {}
 
-  // Public: Gets a value scoped specifically to this user.
-  // `key` is unique per-user, rather than globally.
-  get_user_value (user, key) {}
+  _get (key, table) {}
 }
 
 module.exports = DataStore
