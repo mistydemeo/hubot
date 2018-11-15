@@ -21,9 +21,18 @@ class DataStore {
     return _get(key, value, "global");
   }
 
-  _set (key, value, table) {}
+  _set (key, value, table) {
+    throw new DataStoreUnavailable("Setter called on the abstract class.");
+  }
 
-  _get (key, table) {}
+  _get (key, table) {
+    throw new DataStoreUnavailable("Getter called on the abstract class.");
+  }
 }
 
-module.exports = DataStore
+class DataStoreUnavailable extends Error {}
+
+module.exports = {
+  DataStore,
+  DataStoreUnavailable
+}
