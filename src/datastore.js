@@ -22,11 +22,11 @@ class DataStore {
   }
 
   _set (key, value, table) {
-    throw new DataStoreUnavailable("Setter called on the abstract class.");
+    return Promise.reject(new DataStoreUnavailable("Setter called on the abstract class."));
   }
 
   _get (key, table) {
-    throw new DataStoreUnavailable("Getter called on the abstract class.");
+    return Promise.reject(new DataStoreUnavailable("Getter called on the abstract class."));
   }
 }
 
