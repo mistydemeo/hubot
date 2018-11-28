@@ -18,7 +18,7 @@ class DataStore {
   // Public: Get value by key if in the database or return null
   // if not found.
   get (key) {
-    return this._get(key, value, "global");
+    return this._get(key, "global");
   }
 
   _set (key, value, table) {
