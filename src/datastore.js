@@ -12,13 +12,13 @@ class DataStore {
   //
   // Value can be any JSON-serializable type.
   set (key, value) {
-    return _set(key, value, "global");
+    return this._set(key, value, "global");
   }
 
   // Public: Get value by key if in the database or return null
   // if not found.
   get (key) {
-    return _get(key, value, "global");
+    return this._get(key, value, "global");
   }
 
   _set (key, value, table) {
