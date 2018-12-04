@@ -48,6 +48,16 @@ class DataStore {
     return this._get(key, "global");
   }
 
+  // Public: Digs inside the object at `key` for a key named
+  // `object_key`. If `key` isn't already present, or if it doesn't
+  // contain an `object_key`, returns `undefined`.
+  get_object (key, object_key) {
+    return this.get(key).then((object) => {
+      target = object || [];
+      return target[key];
+    });
+  }
+
   _set (key, value, table) {
     return Promise.reject(new DataStoreUnavailable("Setter called on the abstract class."));
   }
