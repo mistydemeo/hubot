@@ -147,7 +147,7 @@ class Brain extends EventEmitter {
     // This happens if the user was serialized into the brain.
     // When it's loaded back, it becomes a plain object with
     // no methods.
-    if (!user.constructor.name === 'User') {
+    if (user.constructor.name !== 'User') {
       let oldUser = user
       delete user.id
       // Use the old user as the "options" object,
