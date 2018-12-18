@@ -30,7 +30,7 @@ class User {
 
   get (key) {
     this._checkDatastoreAvailable()
-    this.datastore._get(this._construct_key(), 'users')
+    this.datastore._get(this._constructKey(), 'users')
   }
 
   _constructKey (key) {
