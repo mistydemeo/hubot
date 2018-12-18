@@ -147,7 +147,7 @@ class Brain extends EventEmitter {
       this.data.users[id] = user
     }
 
-    if (options && options.room && (!user.room || user.room !== options.room)) {
+    if (options && options.datastore && (!user.datastore || user.datastore !== options.datastore)) {
       user = new User(id, options)
       this.data.users[id] = user
     }
