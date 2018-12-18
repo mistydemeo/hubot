@@ -14,6 +14,15 @@ class User {
       options = {}
     }
 
+    // Define a getter method so we don't actually store the
+    // datastore itself on the user object, preventing it from
+    // being serialized into the brain.
+    if (options.datastore) {
+      let datastore = options.datastore
+      delete options.datastore
+      this.getDatastore = function () { return datastore }
+    }
+
     Object.keys(options).forEach((key) => {
       this[key] = options[key]
     })
@@ -25,12 +34,12 @@ class User {
 
   set (key, value) {
     this._checkDatastoreAvailable()
-    return this.datastore._set(this._constructKey(), value, 'users')
+    return this.getDatastore()._set(this._constructKey(), value, 'users')
   }
 
   get (key) {
     this._checkDatastoreAvailable()
-    return this.datastore._get(this._constructKey(), 'users')
+    return this.getDatastore()._get(this._constructKey(), 'users')
   }
 
   _constructKey (key) {
@@ -38,8 +47,8 @@ class User {
   }
 
   _checkDatastoreAvailable () {
-    if (!this.datastore) {
-      throw new DataStoreUnavailable('this.datastore is not initialized')
+    if (!this.getDatastore()) {
+      throw new DataStoreUnavailable('datastore is not initialized')
     }
   }
 }
