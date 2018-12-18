@@ -1,6 +1,6 @@
 'use strict'
 
-const DataStoreUnavailable = require ('./datastore').DataStoreUnavailable
+const DataStoreUnavailable = require('./datastore').DataStoreUnavailable
 
 class User {
   // Represents a participating user in the chat.
@@ -24,22 +24,22 @@ class User {
   }
 
   set (key, value) {
-    this._check_datastore_available();
-    this.datastore._set(this._construct_key(), value, "users");
+    this._checkDatastoreAvailable()
+    this.datastore._set(this._constructKey(), value, 'users')
   }
 
   get (key) {
-    this._check_datastore_available();
-    this.datastore._get(this._construct_key(), "users");
+    this._checkDatastoreAvailable()
+    this.datastore._get(this._construct_key(), 'users')
   }
 
-  _construct_key (key) {
-    return `${user.id}+${key}`;
+  _constructKey (key) {
+    return `${this.id}+${key}`
   }
 
-  _check_datastore_available () {
+  _checkDatastoreAvailable () {
     if (!this.datastore) {
-      throw new DataStoreUnavailable('this.datastore is not initialized');
+      throw new DataStoreUnavailable('this.datastore is not initialized')
     }
   }
 }
