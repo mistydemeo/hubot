@@ -1,9 +1,7 @@
 'use strict'
 
-const User = require('./user')
-
 class DataStore {
-  constructor(robot) {
+  constructor (robot) {
     this.robot = robot
   }
 
@@ -12,58 +10,58 @@ class DataStore {
   //
   // Value can be any JSON-serializable type.
   set (key, value) {
-    return this._set(key, value, "global");
+    return this._set(key, value, 'global')
   }
 
   // Public: Assuming `key` represents an object in the database,
   // sets its `object_key` to `value`. If `key` isn't already
   // present, it's instantiated as an empty object.
-  set_object (key, object_key, value) {
+  set_object (key, object_key, value) { // eslint-disable-line
     this.get(key).then((object) => {
-      target = object || {};
-      target[object_key] = value;
-      return this.set(key, value);
-    });
+      let target = object || {}
+      target[object_key] = value
+      return this.set(key, value)
+    })
   }
 
   // Public: Adds the supplied value(s) to the end of the existing
   // array in the database marked by `key`. If `key` isn't already
   // present, it's instantiated as an empty array.
-  set_array (key, value) {
+  set_array (key, value) { // eslint-disable-line
     this.get(key).then((object) => {
-      target = object || [];
+      let target = object || []
       // Extend the array if the value is also an array, otherwise
       // push the single value on the end.
       if (Array.isArray(value)) {
-        return this.set(key, target.push.apply(target, value));
+        return this.set(key, target.push.apply(target, value))
       } else {
-        return this.set(key, target.concat(value));
+        return this.set(key, target.concat(value))
       }
-    });
+    })
   }
 
   // Public: Get value by key if in the database or return null
   // if not found.
   get (key) {
-    return this._get(key, "global");
+    return this._get(key, 'global')
   }
 
   // Public: Digs inside the object at `key` for a key named
   // `object_key`. If `key` isn't already present, or if it doesn't
   // contain an `object_key`, returns `undefined`.
-  get_object (key, object_key) {
+  get_object (key, object_key) { // eslint-disable-line
     return this.get(key).then((object) => {
-      target = object || [];
-      return target[key];
-    });
+      let target = object || []
+      return target[key]
+    })
   }
 
   _set (key, value, table) {
-    return Promise.reject(new DataStoreUnavailable("Setter called on the abstract class."));
+    return Promise.reject(new DataStoreUnavailable('Setter called on the abstract class.'))
   }
 
   _get (key, table) {
-    return Promise.reject(new DataStoreUnavailable("Getter called on the abstract class."));
+    return Promise.reject(new DataStoreUnavailable('Getter called on the abstract class.'))
   }
 }
 
