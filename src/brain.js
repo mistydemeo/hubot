@@ -14,6 +14,7 @@ class Brain extends EventEmitter {
       users: {},
       _private: {}
     }
+    this.robot = robot
 
     this.autoSave = true
 
@@ -131,8 +132,14 @@ class Brain extends EventEmitter {
   // Returns a User instance of the specified user.
   userForId (id, options) {
     let user = this.data.users[id]
+    options.datastore = this.robot.datastore
 
     if (!user) {
+      user = new User(id, options)
+      this.data.users[id] = user
+    }
+
+    if (options && options.room && (!user.room || user.room !== options.room)) {
       user = new User(id, options)
       this.data.users[id] = user
     }

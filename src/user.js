@@ -25,12 +25,12 @@ class User {
 
   set (key, value) {
     this._check_datastore_available();
-    robot.datastore._set(this._construct_key(), value, "users");
+    this.datastore._set(this._construct_key(), value, "users");
   }
 
   get (key) {
     this._check_datastore_available();
-    robot.datastore._get(this._construct_key(), "users");
+    this.datastore._get(this._construct_key(), "users");
   }
 
   _construct_key (key) {
@@ -38,8 +38,8 @@ class User {
   }
 
   _check_datastore_available () {
-    if (!robot.datastore) {
-      throw new DataStoreUnavailable('robot.datastore is not initialized');
+    if (!this.datastore) {
+      throw new DataStoreUnavailable('this.datastore is not initialized');
     }
   }
 }
