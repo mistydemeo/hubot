@@ -132,6 +132,9 @@ class Brain extends EventEmitter {
   // Returns a User instance of the specified user.
   userForId (id, options) {
     let user = this.data.users[id]
+    if (!options) {
+      options = {}
+    }
     options.datastore = this.robot.datastore
 
     if (!user) {
