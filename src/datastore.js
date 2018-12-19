@@ -51,8 +51,8 @@ class DataStore {
   // contain an `object_key`, returns `undefined`.
   get_object (key, object_key) { // eslint-disable-line
     return this.get(key).then((object) => {
-      let target = object || []
-      return target[key]
+      let target = object || {}
+      return target[object_key]
     })
   }
 
