@@ -20,7 +20,7 @@ class DataStore {
     return this.get(key).then((object) => {
       let target = object || {}
       target[object_key] = value
-      return this.set(key, value)
+      return this.set(key, target)
     })
   }
 
