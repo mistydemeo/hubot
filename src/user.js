@@ -34,12 +34,12 @@ class User {
 
   set (key, value) {
     this._checkDatastoreAvailable()
-    return this.getDatastore()._set(this._constructKey(), value, 'users')
+    return this.getDatastore()._set(this._constructKey(key), value, 'users')
   }
 
   get (key) {
     this._checkDatastoreAvailable()
-    return this.getDatastore()._get(this._constructKey(), 'users')
+    return this.getDatastore()._get(this._constructKey(key), 'users')
   }
 
   _constructKey (key) {
