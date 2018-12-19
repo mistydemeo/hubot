@@ -17,7 +17,7 @@ class DataStore {
   // sets its `object_key` to `value`. If `key` isn't already
   // present, it's instantiated as an empty object.
   set_object (key, object_key, value) { // eslint-disable-line
-    this.get(key).then((object) => {
+    return this.get(key).then((object) => {
       let target = object || {}
       target[object_key] = value
       return this.set(key, value)
@@ -28,7 +28,7 @@ class DataStore {
   // array in the database marked by `key`. If `key` isn't already
   // present, it's instantiated as an empty array.
   set_array (key, value) { // eslint-disable-line
-    this.get(key).then((object) => {
+    return this.get(key).then((object) => {
       let target = object || []
       // Extend the array if the value is also an array, otherwise
       // push the single value on the end.
