@@ -10,7 +10,7 @@ const User = require('./user')
 // 2. If the original object was a User object, the original object
 // 3. If the original object was a plain JavaScript object, return
 //    a User object with all of the original object's properties.
-let reconstructUserIfNecessary = function (user) {
+let reconstructUserIfNecessary = function (user, brain) {
   if (!user) {
     return null
   }
@@ -20,6 +20,9 @@ let reconstructUserIfNecessary = function (user) {
     delete user.id
     // Use the old user as the "options" object,
     // populating the new user with its values.
+    // Also add the `robot` field so it gets a reference.
+    user.robot = brain.robot;
+
     return new User(id, user)
   } else {
     return user
@@ -143,7 +146,7 @@ class Brain extends EventEmitter {
     if (data && data.users) {
       for (let k in data.users) {
         let user = this.data.users[k]
-        this.data.users[k] = reconstructUserIfNecessary(user)
+        this.data.users[k] = reconstructUserIfNecessary(user, this)
       }
     }
 
@@ -165,7 +168,7 @@ class Brain extends EventEmitter {
     if (!options) {
       options = {}
     }
-    options.datastore = this.robot.datastore
+    options.robot = this.robot
 
     if (!user) {
       user = new User(id, options)
@@ -180,6 +183,7 @@ class Brain extends EventEmitter {
     if (user.constructor.name !== 'User') {
       let oldUser = user
       delete user.id
+      oldUser.robot = this.robot
       // Use the old user as the "options" object,
       // populating the new user with its values.
       user = new User(id, oldUser)

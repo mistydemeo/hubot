@@ -17,10 +17,12 @@ class User {
     // Define a getter method so we don't actually store the
     // datastore itself on the user object, preventing it from
     // being serialized into the brain.
-    if (options.datastore) {
-      let datastore = options.datastore
-      delete options.datastore
+    if (options.robot) {
+      let datastore = options.robot.datastore
+      delete options.robot
       this.getDatastore = function () { return datastore }
+    } else {
+      this.getDatastore = function () { return }
     }
 
     Object.keys(options).forEach((key) => {
