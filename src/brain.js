@@ -175,21 +175,6 @@ class Brain extends EventEmitter {
       this.data.users[id] = user
     }
 
-    // If this isn't a user object, promote it back into one;
-    // otherwise its methods will be missing.
-    // This happens if the user was serialized into the brain.
-    // When it's loaded back, it becomes a plain object with
-    // no methods.
-    if (user.constructor.name !== 'User') {
-      let oldUser = user
-      delete user.id
-      oldUser.robot = this.robot
-      // Use the old user as the "options" object,
-      // populating the new user with its values.
-      user = new User(id, oldUser)
-      this.data.users[id] = user
-    }
-
     if (options && options.room && (!user.room || user.room !== options.room)) {
       user = new User(id, options)
       this.data.users[id] = user
