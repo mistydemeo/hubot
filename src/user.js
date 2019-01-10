@@ -22,7 +22,7 @@ class User {
       delete options.robot
       this._getRobot = function () { return robot }
     } else {
-      this._getRobot = function () { return }
+      this._getRobot = function () { }
     }
 
     Object.keys(options).forEach((key) => {
@@ -56,9 +56,7 @@ class User {
 
   _getDatastore () {
     let robot = this._getRobot()
-    if (!robot) {
-      return
-    } else {
+    if (robot) {
       return robot.datastore
     }
   }

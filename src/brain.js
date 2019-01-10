@@ -21,7 +21,7 @@ let reconstructUserIfNecessary = function (user, brain) {
     // Use the old user as the "options" object,
     // populating the new user with its values.
     // Also add the `robot` field so it gets a reference.
-    user.robot = brain.robot;
+    user.robot = brain.robot
 
     return new User(id, user)
   } else {
