@@ -14,12 +14,12 @@ class DataStore {
   }
 
   // Public: Assuming `key` represents an object in the database,
-  // sets its `object_key` to `value`. If `key` isn't already
+  // sets its `objectKey` to `value`. If `key` isn't already
   // present, it's instantiated as an empty object.
-  set_object (key, object_key, value) { // eslint-disable-line
+  setObject (key, objectKey, value) {
     return this.get(key).then((object) => {
       let target = object || {}
-      target[object_key] = value
+      target[objectKey] = value
       return this.set(key, target)
     })
   }
@@ -27,7 +27,7 @@ class DataStore {
   // Public: Adds the supplied value(s) to the end of the existing
   // array in the database marked by `key`. If `key` isn't already
   // present, it's instantiated as an empty array.
-  set_array (key, value) { // eslint-disable-line
+  setArray (key, value) {
     return this.get(key).then((object) => {
       let target = object || []
       // Extend the array if the value is also an array, otherwise
@@ -47,12 +47,12 @@ class DataStore {
   }
 
   // Public: Digs inside the object at `key` for a key named
-  // `object_key`. If `key` isn't already present, or if it doesn't
-  // contain an `object_key`, returns `undefined`.
-  get_object (key, object_key) { // eslint-disable-line
+  // `objectKey`. If `key` isn't already present, or if it doesn't
+  // contain an `objectKey`, returns `undefined`.
+  getObject (key, objectKey) {
     return this.get(key).then((object) => {
       let target = object || {}
-      return target[object_key]
+      return target[objectKey]
     })
   }
 
