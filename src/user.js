@@ -15,14 +15,14 @@ class User {
     }
 
     // Define a getter method so we don't actually store the
-    // datastore itself on the user object, preventing it from
+    // robot itself on the user object, preventing it from
     // being serialized into the brain.
     if (options.robot) {
-      let datastore = options.robot.datastore
+      let robot = options.robot
       delete options.robot
-      this.getDatastore = function () { return datastore }
+      this._getRobot = function () { return robot }
     } else {
-      this.getDatastore = function () { return }
+      this._getRobot = function () { return }
     }
 
     Object.keys(options).forEach((key) => {
@@ -36,12 +36,12 @@ class User {
 
   set (key, value) {
     this._checkDatastoreAvailable()
-    return this.getDatastore()._set(this._constructKey(key), value, 'users')
+    return this._getDatastore()._set(this._constructKey(key), value, 'users')
   }
 
   get (key) {
     this._checkDatastoreAvailable()
-    return this.getDatastore()._get(this._constructKey(key), 'users')
+    return this._getDatastore()._get(this._constructKey(key), 'users')
   }
 
   _constructKey (key) {
@@ -49,8 +49,17 @@ class User {
   }
 
   _checkDatastoreAvailable () {
-    if (!this.getDatastore()) {
+    if (!this._getDatastore()) {
       throw new DataStoreUnavailable('datastore is not initialized')
+    }
+  }
+
+  _getDatastore () {
+    let robot = this._getRobot()
+    if (!robot) {
+      return
+    } else {
+      return robot.datastore
     }
   }
 }
